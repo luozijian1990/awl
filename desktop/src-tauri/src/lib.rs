@@ -7,7 +7,7 @@ mod state;
 use tauri::{
     menu::{Menu, MenuItem},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
-    Manager, RunEvent, WindowEvent,
+    Manager, WindowEvent,
 };
 
 /// 显示并聚焦主窗口（从托盘 / dock 恢复）。
@@ -84,10 +84,12 @@ pub fn run() {
         .build(tauri::generate_context!())
         .expect("failed to build worklog desktop app");
 
-    app.run(|app_handle, event| {
+    app.run(|_app_handle, _event| {
         // macOS：dock 图标被点击且无可见窗口时，恢复主窗口。
-        if let RunEvent::Reopen { .. } = event {
-            show_main_window(app_handle);
+        // RunEvent::Reopen 是 macOS 专属变体，其它平台需 cfg 掉，否则无法编译。
+        #[cfg(target_os = "macos")]
+        if let tauri::RunEvent::Reopen { .. } = _event {
+            show_main_window(_app_handle);
         }
     });
 }
