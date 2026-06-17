@@ -1,0 +1,6 @@
+{
+  "identifier": "default",
+  "description": "Worklog 主窗口默认权限：core 默认集合 + 本应用自定义 command。",
+  "windows": ["main"],
+  "permissions": ["core:default", "autostart:default"]
+}

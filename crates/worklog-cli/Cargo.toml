@@ -1,0 +1,16 @@
+[package]
+name = "worklog-cli"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "worklog"
+path = "src/main.rs"
+
+[dependencies]
+chrono = { version = "0.4.45", features = ["serde"] }
+rusqlite = { version = "0.40.1", features = ["bundled", "chrono"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+uuid = { version = "1.23.3", features = ["v4"] }
+worklog-core = { path = "../worklog-core" }

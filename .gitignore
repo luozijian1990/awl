@@ -1,0 +1,43 @@
+# Rust / Cargo
+/target/
+**/*.rs.bk
+
+# Tauri (desktop)
+desktop/src-tauri/target/
+desktop/target/
+desktop/src-tauri/gen/
+desktop/dist/
+
+# Node / Vite (desktop frontend)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.vite/
+
+# 本地 SQLite 数据库（含 WAL/SHM 旁路文件）
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# 环境与编辑器杂项
+.env
+.env.local
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.swp
+*~
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Playwright CLI 测试产物（快照/截图）
+.playwright-cli/
+
+# 内部文档（设计 / 计划 / 契约 / 开发说明不进主干）
+docs/
