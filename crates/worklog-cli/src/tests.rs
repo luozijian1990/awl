@@ -1,6 +1,30 @@
 use std::fs;
 
 #[test]
+fn cli_help_prints_usage_and_does_not_open_database() {
+    let db_path = std::env::temp_dir().join(format!("worklog-cli-{}.db", uuid::Uuid::new_v4()));
+    let mut stdout = Vec::new();
+
+    let code = super::run_with_args(
+        vec!["worklog", "--db", db_path.to_str().unwrap(), "--help"],
+        &mut stdout,
+    )
+    .unwrap();
+
+    let output = String::from_utf8(stdout).unwrap();
+    assert_eq!(code, 0);
+    assert!(output.contains("Usage: worklog [--db <path>] <command>"));
+    assert!(output.contains("--help"));
+    assert!(output.contains("entry add"));
+    assert!(output.contains("calendar list"));
+    assert!(output.contains("export report-source"));
+    assert!(
+        !db_path.exists(),
+        "help should not open or create the database"
+    );
+}
+
+#[test]
 fn cli_add_list_confirm_and_export_report_source() {
     let db_path = std::env::temp_dir().join(format!("worklog-cli-{}.db", uuid::Uuid::new_v4()));
     let mut stdout = Vec::new();

@@ -4583,7 +4583,7 @@ dependencies = [
 
 [[package]]
 name = "worklog-cli"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "chrono",
  "rusqlite",
@@ -4595,7 +4595,7 @@ dependencies = [
 
 [[package]]
 name = "worklog-core"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "chrono",
  "directories",
@@ -4608,7 +4608,7 @@ dependencies = [
 
 [[package]]
 name = "worklog-desktop"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "chrono",
  "directories",

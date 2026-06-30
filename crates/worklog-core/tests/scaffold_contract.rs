@@ -71,6 +71,18 @@ fn desktop_tauri_shell_is_scaffolded_and_joined_to_workspace() {
     assert!(tauri_cargo.contains("worklog-core"));
 }
 
+#[test]
+fn release_workflow_uploads_windows_portable_desktop_zip() {
+    let root = workspace_root();
+
+    let workflow = fs::read_to_string(root.join(".github/workflows/release.yml")).unwrap();
+    assert!(workflow.contains("Package portable ZIP"));
+    assert!(workflow.contains("target/release/worklog-desktop.exe"));
+    assert!(workflow.contains("Compress-Archive"));
+    assert!(workflow.contains("dist/Worklog_${version}_x64-portable.zip"));
+    assert!(workflow.contains("dist/*-portable.zip"));
+}
+
 fn workspace_root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .parent()
