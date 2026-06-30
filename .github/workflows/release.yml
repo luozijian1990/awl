@@ -167,10 +167,16 @@ jobs:
         run: |
           set -euxo pipefail
           ls -lah release-assets
+          mapfile -t assets < <(find release-assets -type f | sort)
+          printf '%s\n' "${assets[@]}"
+          if [ "${#assets[@]}" -eq 0 ]; then
+            echo "no release assets found" >&2
+            exit 1
+          fi
           if gh release view "${TAG_NAME}" >/dev/null 2>&1; then
-            gh release upload "${TAG_NAME}" release-assets/* --clobber
+            gh release upload "${TAG_NAME}" "${assets[@]}" --clobber
           else
-            gh release create "${TAG_NAME}" release-assets/* \
+            gh release create "${TAG_NAME}" "${assets[@]}" \
               --title "${TAG_NAME}" \
               --generate-notes
           fi

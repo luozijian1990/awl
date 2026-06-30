@@ -83,6 +83,19 @@ fn release_workflow_uploads_windows_portable_desktop_zip() {
     assert!(workflow.contains("dist/*-portable.zip"));
 }
 
+#[test]
+fn release_workflow_publishes_downloaded_files_without_directory_globs() {
+    let root = workspace_root();
+
+    let workflow = fs::read_to_string(root.join(".github/workflows/release.yml")).unwrap();
+    assert!(workflow.contains("find release-assets -type f"));
+    assert!(workflow.contains("${assets[@]}"));
+    assert!(
+        !workflow.contains("release-assets/* --clobber"),
+        "release upload should not pass downloaded artifact directories to gh"
+    );
+}
+
 fn workspace_root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .parent()
