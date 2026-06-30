@@ -96,6 +96,29 @@ fn release_workflow_publishes_downloaded_files_without_directory_globs() {
     );
 }
 
+#[test]
+fn weekly_report_skill_avoids_private_environment_details() {
+    let root = workspace_root();
+    let skill = fs::read_to_string(root.join("skills/weekly-report/SKILL.md")).unwrap();
+    let format =
+        fs::read_to_string(root.join("skills/weekly-report/references/report-format.md")).unwrap();
+    let combined = format!("{skill}\n{format}");
+
+    for marker in [
+        "/Users/",
+        "\\Users\\",
+        "~/.claude",
+        "192.168.",
+        "10.",
+        "172.16.",
+    ] {
+        assert!(
+            !combined.contains(marker),
+            "weekly-report skill should not contain private environment marker: {marker}"
+        );
+    }
+}
+
 fn workspace_root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .parent()

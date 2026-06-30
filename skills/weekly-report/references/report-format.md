@@ -20,12 +20,12 @@
 默认最终输出路径：
 
 ```text
-/Users/luozijian/Documents/weekly-reports/weekly-report-<start-date>-<end-date>.md
+<workspace>/weekly-reports/weekly-report-<start-date>-<end-date>.md
 ```
 
 ## 源数据处理
 
-源数据来自 `worklog export report-source --format json`，是该日期范围内的 **confirmed** 工作项（已替代旧的 `organizer == null` 过滤）。
+源数据来自 `worklog export report-source --format json`，是该日期范围内的 **confirmed** 工作项。
 
 - 以导出的 confirmed 工作项为唯一事实源，不要补充范围外内容。
 - 写之前先判断连续性。
@@ -55,51 +55,51 @@
 Raw source（`worklog export` 返回的某条 `title`）:
 
 ```text
-修复测试环境192.168.1.146 定时任务没有关闭 chrome 造成load异常
+修复测试环境定时任务未关闭浏览器进程造成负载异常
 ```
 
 Rewrite:
 
 ```md
-1. 修复测试环境 `192.168.1.146` 定时任务未关闭 Chrome 导致的 load 异常问题，恢复任务执行稳定性，降低测试环境资源异常波动风险。
+1. 修复测试环境定时任务未关闭浏览器进程导致的负载异常问题，恢复任务执行稳定性，降低测试环境资源异常波动风险。
 ```
 
 Raw source:
 
 ```text
-paas新增docker应用管理需求设计
+容器应用管理需求设计
 ```
 
 Rewrite:
 
 ```md
-2. 推进 PaaS 新增 Docker 应用管理需求设计，当前方案已进入设计阶段，为后续平台统一管理 Docker 应用提供支撑。
+2. 推进容器应用管理需求设计，当前方案已进入设计阶段，为后续平台统一管理应用部署提供支撑。
 ```
 
 连续事项示例（同一 `project`，多天多条 `title`）:
 
 ```text
-temporal-metrics 监控服务开发
-temporal-metrics 添加基于 workflow_type 定义报警组
-temporal 添加前端管理
+监控指标服务开发
+按任务类型配置报警组
+补充前端管理入口
 ```
 
 建议改写：
 
 ```md
-3. 持续完善 Temporal 监控与管理能力，完成 `temporal-metrics` 服务开发、按 `workflow_type` 配置报警组并推进前端管理建设，提升任务链路可观测性和运维效率。
+3. 持续完善任务监控与管理能力，完成监控指标服务开发、按任务类型配置报警组并补充前端管理入口，提升任务链路可观测性和运维效率。
 ```
 
 连续事项示例：
 
 ```text
-langfuse 本地kubernetes 部署 && 测试
-修复测试环境langfuse zookeeper 资源不足oom
-langfuse 生产环境上线
+日志分析服务本地部署与测试
+修复测试环境日志分析服务资源不足问题
+日志分析服务生产环境上线
 ```
 
 建议改写：
 
 ```md
-4. 持续推进 Langfuse 环境建设，完成本地 Kubernetes 部署测试、修复测试环境资源问题并推动生产环境上线，为后续正式使用提供稳定支撑。
+4. 持续推进日志分析服务环境建设，完成本地部署测试、修复测试环境资源问题并推动生产环境上线，为后续正式使用提供稳定支撑。
 ```
