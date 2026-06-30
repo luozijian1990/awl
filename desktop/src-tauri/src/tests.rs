@@ -118,6 +118,21 @@ fn desktop_shell_registers_stable_command_names_for_frontend() {
 }
 
 #[test]
+fn desktop_release_binary_uses_windows_gui_subsystem() {
+    let manifest_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let main = std::fs::read_to_string(manifest_dir.join("src/main.rs")).unwrap();
+
+    assert!(
+        main.contains(r#"windows_subsystem = "windows""#),
+        "Windows release desktop binary should use the GUI subsystem so it does not open a console"
+    );
+    assert!(
+        main.contains("not(debug_assertions)"),
+        "the GUI subsystem setting should be limited to release builds"
+    );
+}
+
+#[test]
 fn desktop_settings_persist_filters_to_json() {
     let db_path = temp_path("settings-filters.db");
     let settings_path = temp_path("settings-filters.json");
